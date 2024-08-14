@@ -1,0 +1,79 @@
+/* Reseta margens e padding padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Configurações básicas da página */
+body, html {
+    height: 100%;
+    overflow: hidden;
+}
+
+#nomesite {
+    display: block;
+    position: absolute;
+    top: 50px;
+    left: 3vw;
+    background-color: white;
+    padding: 1vh 5vw 1vh 5vw;
+    font-family: monospace;
+    font-size: 1rem;
+    z-index: 100;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh; /* Faz a altura da div container ser a altura total da viewport */
+    overflow-x: auto; /* Permite a rolagem horizontal */
+    /* scroll-snap-type: x mandatory; */
+    cursor: grab; /* Indica que o usuário pode arrastar o conteúdo */
+    scrollbar-width: none; /* Oculta a barra de rolagem */
+    -ms-overflow-style: none; /* Oculta a barra de rolagem no IE e Edge */
+}
+
+.container::-webkit-scrollbar {
+    display: none; /* Oculta a barra de rolagem no Chrome, Safari e Opera */
+}
+
+.square {
+    flex: 0 0 30%; /* Define que o quadrado ocupa 30% da largura da viewport */
+    height: 100%; /* O quadrado ocupa 100% da altura da viewport */
+    scroll-snap-align: start; /* Encaixa os elementos ao iniciar a rolagem */
+    transition: transform 0.3s; /* Anima a transição */
+    user-select: none; /* Impede a seleção de texto acidental */
+}
+
+.square:hover {
+    transform: scale(1.05); /* Aumenta levemente o quadrado ao passar o mouse */
+}
+
+.popup {
+    display: none; /* Esconde a popup inicialmente */
+    position: fixed; /* Posiciona a popup fixamente na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    width: 80%; /* Define a largura da popup */
+    height: 80%; /* Define a altura da popup */
+    background-color: white; /* Fundo da popup branco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Esconde conteúdos que ultrapassem o espaço */
+    position: relative;
+    border-radius: 10px;
+}
+
+.active {
+    cursor: grabbing; /* Mostra um cursor de 'agarrando' quando o mouse está pressionado */
+}
