@@ -1,7 +1,7 @@
 // Seleciona o container dos quadrados e as popups
 const container = document.querySelector('.container');
 const popup = document.getElementById('popup');
-const popupContent = document.querySelector('.popup-content');
+const popupImage = document.getElementById('popup-image');
 let isDown = false;
 let startX;
 let scrollLeft;
@@ -35,7 +35,7 @@ container.addEventListener('mousemove', (e) => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - container.offsetLeft;
-    const walk = (x - startX) * 0.4; // Ajusta a sensibilidade do scroll
+    const walk = (x - startX) * 0.4;
     container.scrollLeft = scrollLeft - walk;
     velocity = e.pageX - lastMouseX;
     lastMouseX = e.pageX;
@@ -45,29 +45,20 @@ container.addEventListener('mousemove', (e) => {
 function applyMomentum() {
     if (Math.abs(velocity) > 0.5) {
         container.scrollLeft -= velocity;
-        velocity *= 0.95; // Reduz a velocidade gradualmente
+        velocity *= 0.95;
         momentumRafId = requestAnimationFrame(applyMomentum);
     } else {
         velocity = 0;
     }
 }
 
-// Evento de clique duplo nos quadrados para abrir a popup
+// Evento de clique nos quadrados para abrir a popup
 container.querySelectorAll('.square').forEach(square => {
     square.addEventListener('click', () => {
-        if (lastClicked === square) {
-            clickCount++;
-        } else {
-            clickCount = 1;
-            lastClicked = square;
-        }
-
-        if (clickCount === 2) {
-            // Copia a cor de fundo do quadrado para o conteúdo da popup
-            popupContent.style.backgroundColor = square.style.backgroundColor;
-            // Exibe a popup
-            popup.style.display = 'flex';
-        }
+        const backgroundImage = square.style.backgroundImage;
+        const imageUrl = backgroundImage.slice(5, -2); // Remove o 'url()'
+        popupImage.src = imageUrl;
+        popup.style.display = 'flex'; // Exibe a popup
     });
 });
 
@@ -75,7 +66,5 @@ container.querySelectorAll('.square').forEach(square => {
 popup.addEventListener('click', (e) => {
     if (e.target === popup) {
         popup.style.display = 'none';
-        clickCount = 0;
-        lastClicked = null;
     }
 });
